@@ -1,0 +1,928 @@
+/* Hero Section Styles - Premium SaaS Platform Visual Identity */
+
+.hero-section {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3.5rem;
+  padding: 4.5rem 3.5rem 5rem 3.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+  overflow: hidden;
+}
+
+/* Ambient Radial Glow Spotlights */
+.hero-ambient-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-spotlight {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+}
+
+.spotlight-blue {
+  width: 450px;
+  height: 450px;
+  background: rgba(37, 99, 235, 0.3);
+  top: -10%;
+  left: 10%;
+}
+
+.spotlight-purple {
+  width: 400px;
+  height: 400px;
+  background: rgba(139, 92, 246, 0.25);
+  bottom: 0%;
+  right: 15%;
+}
+
+.spotlight-cyan {
+  width: 350px;
+  height: 350px;
+  background: rgba(6, 182, 212, 0.2);
+  top: 30%;
+  right: -5%;
+}
+
+/* Left Content Column */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Top Tag Pill */
+.hero-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.1rem;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: var(--radius-full);
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.sparkle-icon {
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+/* Headline Title */
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5.5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  margin-bottom: 1.25rem;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+.typewriter-line {
+  display: inline-block;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Thin Blinking Cursor */
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background-color: var(--primary);
+  margin-left: 4px;
+  vertical-align: middle;
+  border-radius: 2px;
+  animation: blinkCursor 0.8s infinite;
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Subtle Gradient Emphasis on "Future." */
+.hero-gradient-future {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.hero-highlight-word {
+  color: #38bdf8;
+  font-weight: 800;
+}
+
+/* Subdescription */
+.hero-description {
+  font-size: clamp(0.92rem, 2vw, 1.1rem);
+  color: var(--text-muted);
+  line-height: 1.65;
+  max-width: 540px;
+  width: 100%;
+  margin-bottom: 2.2rem;
+  font-weight: 400;
+}
+
+/* Hero Action Buttons */
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero-btn-main {
+  font-size: 1rem;
+  padding: 0.85rem 1.85rem;
+}
+
+.hero-btn-sub {
+  font-size: 1rem;
+  padding: 0.85rem 1.85rem;
+}
+
+/* Feature Strip */
+.hero-features-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+  width: 100%;
+}
+
+.strip-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.strip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.strip-dot.green { background: #34d399; box-shadow: 0 0 8px rgba(52, 211, 153, 0.6); }
+.strip-dot.blue { background: #38bdf8; box-shadow: 0 0 8px rgba(56, 189, 248, 0.6); }
+.strip-dot.purple { background: #c084fc; box-shadow: 0 0 8px rgba(192, 132, 252, 0.6); }
+
+/* Right 3D Visual Stage */
+.hero-visual-3d-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+}
+
+.hero-3d-card-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  transform-style: preserve-3d;
+}
+
+/* Main IDE Window */
+.hero-3d-ide-window {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.ide-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ide-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ide-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-close { background: #ef4444; }
+.dot-min { background: #f59e0b; }
+.dot-max { background: #10b981; }
+
+.ide-url-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  padding: 0.25rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 240px;
+}
+
+.ide-live-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #34d399;
+  letter-spacing: 0.05em;
+}
+
+.pulse-green-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399;
+}
+
+.ide-body-content {
+  padding: 1.5rem;
+}
+
+.ide-logo-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ide-logo-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ide-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.ide-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.ide-logo-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.ide-logo-sub {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* Code Snippet Block */
+.ide-code-block {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+  font-family: 'Fira Code', monospace, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.code-keyword { color: #c084fc; font-weight: 600; }
+.code-var { color: #60a5fa; }
+.code-function { color: #38bdf8; }
+.code-method { color: #34d399; }
+.code-prop { color: #f472b6; }
+.code-string { color: #fde047; }
+.code-number { color: #fb923c; }
+.code-boolean { color: #a78bfa; }
+.code-indent { padding-left: 1.25rem; }
+
+/* Micro Floating Chips */
+.hero-3d-micro-chip {
+  position: absolute;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.chip-certificate {
+  top: -20px;
+  right: -15px;
+}
+
+.chip-rating {
+  bottom: -20px;
+  left: -20px;
+}
+
+.chip-icon.green { color: #34d399; }
+.chip-icon.amber { color: #f59e0b; }
+
+.chip-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.chip-text strong {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.chip-text span {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* Floating Action Pill Badges: LEARN, BUILD, GROW */
+.hero-pill-badge-3d {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  z-index: 12;
+}
+
+.pill-learn-3d {
+  top: 25%;
+  left: -35px;
+  color: #38bdf8;
+}
+
+.pill-build-3d {
+  top: 55%;
+  right: -30px;
+  color: #c084fc;
+}
+
+.pill-grow-3d {
+  bottom: 12%;
+  right: -25px;
+  left: auto;
+  color: #34d399;
+}
+
+.pill-icon-3d.cyan { color: #38bdf8; }
+.pill-icon-3d.purple { color: #c084fc; }
+.pill-icon-3d.emerald { color: #34d399; }
+
+/* Responsive Proportions */
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 3.1rem;
+  }
+}
+
+/* Responsive Proportions */
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 3.1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 4.5rem 1.25rem 3rem 1.25rem;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+
+  .hero-badge-tag {
+    margin: 0 auto 1.25rem auto;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .hero-title {
+    text-align: center;
+    margin: 0 auto 1.25rem auto;
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    min-height: 3.2rem;
+  }
+
+  .hero-description {
+    text-align: center;
+    margin: 0 auto 1.75rem auto;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .hero-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    gap: 0.75rem;
+    margin: 0 auto 1.75rem auto;
+  }
+
+  .hero-btn-main,
+  .hero-btn-sub {
+    width: auto;
+    max-width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 0.65rem 1.35rem;
+    font-size: 0.88rem;
+    margin: 0;
+  }
+
+  .hero-visual-3d-stage {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.5rem 0;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .hero-3d-card-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 2.2rem 0.8rem;
+    box-sizing: border-box;
+  }
+
+  .hero-3d-ide-window {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 1. Verifiable Certificate (Top Right) */
+  .hero-3d-micro-chip.chip-certificate {
+    display: flex !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    padding: 0.4rem 0.75rem !important;
+    gap: 0.45rem !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35) !important;
+    z-index: 15 !important;
+  }
+
+  .chip-certificate .chip-text strong {
+    font-size: 0.72rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .chip-certificate .chip-text span {
+    font-size: 0.6rem !important;
+  }
+
+  /* 2. 100% Free Virtual Track (Bottom Left) */
+  .hero-3d-micro-chip.chip-rating {
+    display: flex !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    padding: 0.4rem 0.75rem !important;
+    gap: 0.45rem !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35) !important;
+    z-index: 15 !important;
+  }
+
+  .chip-rating .chip-text strong {
+    font-size: 0.72rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .chip-rating .chip-text span {
+    font-size: 0.6rem !important;
+  }
+
+  /* 3. LEARN (Top Left) */
+  .hero-pill-badge-3d.pill-learn-3d {
+    display: inline-flex !important;
+    position: absolute !important;
+    top: 0.2rem !important;
+    left: 0 !important;
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.72rem !important;
+    z-index: 16 !important;
+  }
+
+  /* 4. BUILD (Middle Right) */
+  .hero-pill-badge-3d.pill-build-3d {
+    display: inline-flex !important;
+    position: absolute !important;
+    top: 48% !important;
+    right: -2px !important;
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.72rem !important;
+    z-index: 16 !important;
+  }
+
+  /* 5. GROW (Bottom Right) */
+  .hero-pill-badge-3d.pill-grow-3d {
+    display: inline-flex !important;
+    position: absolute !important;
+    bottom: 0.2rem !important;
+    right: 0 !important;
+    left: auto !important;
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.72rem !important;
+    z-index: 16 !important;
+  }
+
+  .hero-features-strip {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .strip-item {
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    word-break: break-word;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    padding: 4.25rem 0.85rem 2.5rem 0.85rem;
+    gap: 1.75rem;
+  }
+
+  .hero-badge-tag {
+    font-size: 0.68rem;
+    padding: 0.35rem 0.75rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.45rem, 5.8vw, 1.9rem);
+    min-height: 2.8rem;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+
+  .typewriter-line {
+    white-space: normal;
+    display: inline;
+    word-break: break-word;
+  }
+
+  .hero-description {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 1.35rem;
+  }
+
+  .hero-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1.25rem;
+    width: 100%;
+  }
+
+  .hero-btn-main,
+  .hero-btn-sub {
+    padding: 0.55rem 1.05rem;
+    font-size: 0.82rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: -0.01em;
+    width: auto;
+    max-width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .hero-features-strip {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem 0.75rem;
+    padding-top: 0.75rem;
+    width: 100%;
+  }
+
+  .strip-item {
+    width: auto;
+    max-width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 0.75rem;
+  }
+
+  .hero-visual-3d-stage {
+    margin-top: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .hero-3d-card-wrapper {
+    max-width: 100%;
+    padding: 2.4rem 0.4rem 2.4rem 0.4rem;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ide-header-bar {
+    padding: 0.45rem 0.65rem;
+    gap: 0.3rem;
+  }
+
+  .ide-url-pill {
+    max-width: 135px;
+    font-size: 0.62rem;
+    padding: 0.15rem 0.4rem;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .ide-live-badge {
+    font-size: 0.62rem;
+    gap: 0.2rem;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+  }
+
+  .pulse-green-dot {
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+  }
+
+  .ide-body-content {
+    padding: 0.85rem 0.65rem;
+  }
+
+  .ide-logo-header {
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .ide-logo-badge {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ide-logo-title {
+    font-size: 0.88rem;
+  }
+
+  .ide-logo-sub {
+    font-size: 0.7rem;
+  }
+
+  .ide-code-block {
+    overflow-x: auto;
+    font-size: 0.7rem;
+    padding: 0.65rem 0.65rem;
+    line-height: 1.55;
+    border-radius: 10px;
+  }
+
+  .code-indent {
+    padding-left: 0.85rem;
+  }
+
+  /* Responsive 3D Micro Chips & Pills on Mobile */
+  .hero-3d-micro-chip.chip-certificate {
+    display: flex !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    padding: 0.32rem 0.6rem !important;
+    gap: 0.4rem !important;
+    border-radius: 10px !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .chip-certificate .chip-text strong {
+    font-size: 0.66rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .chip-certificate .chip-text span {
+    font-size: 0.55rem !important;
+  }
+
+  .hero-3d-micro-chip.chip-rating {
+    display: flex !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    padding: 0.32rem 0.6rem !important;
+    gap: 0.4rem !important;
+    border-radius: 10px !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .chip-rating .chip-text strong {
+    font-size: 0.66rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .chip-rating .chip-text span {
+    font-size: 0.55rem !important;
+  }
+
+  .hero-pill-badge-3d.pill-learn-3d {
+    display: inline-flex !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    padding: 0.28rem 0.6rem !important;
+    font-size: 0.66rem !important;
+  }
+
+  .hero-pill-badge-3d.pill-build-3d {
+    display: inline-flex !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: -4px !important;
+    transform: translateY(-50%) !important;
+    padding: 0.28rem 0.6rem !important;
+    font-size: 0.66rem !important;
+  }
+
+  .hero-pill-badge-3d.pill-grow-3d {
+    display: inline-flex !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    padding: 0.28rem 0.6rem !important;
+    font-size: 0.66rem !important;
+  }
+
+  .chip-icon,
+  .pill-icon-3d {
+    width: 13px !important;
+    height: 13px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-section {
+    padding: 3.75rem 0.5rem 2rem 0.5rem;
+    gap: 1.5rem;
+  }
+
+  .hero-badge-tag {
+    font-size: 0.62rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .hero-title {
+    font-size: 1.35rem;
+    min-height: 2.4rem;
+  }
+
+  .hero-description {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .hero-buttons {
+    gap: 0.4rem;
+  }
+
+  .hero-btn-main,
+  .hero-btn-sub {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .strip-item {
+    font-size: 0.7rem;
+  }
+
+  .hero-3d-card-wrapper {
+    padding: 2.2rem 0.2rem 2.2rem 0.2rem;
+  }
+
+  .chip-certificate .chip-text strong,
+  .chip-rating .chip-text strong {
+    font-size: 0.6rem !important;
+  }
+
+  .chip-certificate .chip-text span,
+  .chip-rating .chip-text span {
+    font-size: 0.52rem !important;
+  }
+
+  .pill-learn-3d,
+  .pill-build-3d,
+  .pill-grow-3d {
+    padding: 0.22rem 0.5rem !important;
+    font-size: 0.6rem !important;
+  }
+}
