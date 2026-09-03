@@ -5,7 +5,7 @@ import { certificateAPI } from '../../services/apiClient';
 import './Modals.css';
 
 export default function CertificateApplicationModal({ isOpen, onClose, user, trackTitle, approvedProjects, onApplySuccess }) {
-  const [certName, setCertName] = useState(user?.name || 'Nikhil Sharma');
+  const [certName, setCertName] = useState(user?.name || user?.fullName || '');
   const [deliveryEmail, setDeliveryEmail] = useState(user?.email || '');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);

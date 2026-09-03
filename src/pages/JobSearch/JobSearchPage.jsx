@@ -410,6 +410,7 @@ export default function JobSearchPage({ user, setCurrentView, onRequireAuth }) {
         isOpen={Boolean(applyModalItem)}
         internship={applyModalItem}
         onClose={() => setApplyModalItem(null)}
+        user={user}
         onSubmitSuccess={(msg) => {
           showToast(msg || '🎉 Application Registered! Opening Student Dashboard...');
           setTimeout(() => {

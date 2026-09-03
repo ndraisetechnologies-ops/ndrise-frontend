@@ -514,6 +514,7 @@ export default function App() {
         internship={selectedInternship}
         onClose={() => setApplyModalOpen(false)}
         onSubmitSuccess={handleApplySuccess}
+        user={user}
       />
 
       <TaskGuidelinesModal 

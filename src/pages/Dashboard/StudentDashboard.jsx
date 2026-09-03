@@ -618,7 +618,7 @@ export default function StudentDashboard({ user, onLogout, setCurrentView }) {
 
         {/* Full-Width Assigned Projects Section */}
         <FadeIn direction="up" delay={0.15}>
-          <div className="command-card glass-panel" style={{ border: '1.5px solid var(--primary, #2563eb)', marginBottom: '1.75rem' }}>
+          <div className="command-card glass-panel" style={{ marginBottom: '1.75rem' }}>
             <div className="card-header-flex">
               <div>
                 <h3 className="section-card-heading" style={{ marginBottom: '0.25rem', fontSize: '1.35rem' }}>Assigned Projects</h3>
@@ -796,15 +796,15 @@ export default function StudentDashboard({ user, onLogout, setCurrentView }) {
             </div>
 
             {/* Certificate Unlock & Application Banner Box */}
-            <div style={{
+            <div className="glass-panel" style={{
               marginTop: '1.5rem',
               padding: '1.4rem 1.5rem',
               borderRadius: '16px',
               background: isCertApplied || allProjectsApproved 
                 ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 182, 212, 0.12))'
-                : 'rgba(15, 23, 42, 0.5)',
-              border: `1.5px solid ${isCertApplied || allProjectsApproved ? '#34d399' : 'rgba(255, 255, 255, 0.12)'}`,
-              boxShadow: isCertApplied || allProjectsApproved ? '0 0 25px rgba(52, 211, 153, 0.2)' : 'none',
+                : 'var(--bg-glass, rgba(248, 250, 252, 0.75))',
+              border: `1.5px solid ${isCertApplied || allProjectsApproved ? '#34d399' : 'var(--border-light, rgba(226, 232, 240, 0.8))'}`,
+              boxShadow: isCertApplied || allProjectsApproved ? '0 0 25px rgba(52, 211, 153, 0.2)' : '0 4px 20px rgba(0, 0, 0, 0.03)',
               backdropFilter: 'blur(16px)',
               display: 'flex',
               flexDirection: 'column',
@@ -820,18 +820,18 @@ export default function StudentDashboard({ user, onLogout, setCurrentView }) {
                 flexWrap: 'wrap'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-                  {allProjectsApproved ? <Unlock size={22} color="#34d399" /> : <Lock size={22} color="#94a3b8" />}
+                  {allProjectsApproved ? <Unlock size={22} color="#34d399" /> : <Lock size={22} color="var(--text-muted, #64748b)" />}
                   <h4 style={{ fontSize: '1.15rem', color: 'var(--text-main)', margin: 0, fontWeight: '700' }}>
                     Official Certificate & LOR Unlock Status
                   </h4>
                   <span style={{
                     fontSize: '0.74rem',
                     fontWeight: '800',
-                    padding: '0.25rem 0.75rem',
+                    padding: '0.28rem 0.85rem',
                     borderRadius: '20px',
-                    background: isCertApplied || allProjectsApproved ? 'rgba(52, 211, 153, 0.25)' : 'rgba(255, 255, 255, 0.08)',
-                    color: isCertApplied || allProjectsApproved ? '#34d399' : '#94a3b8',
-                    border: `1px solid ${isCertApplied || allProjectsApproved ? '#34d399' : 'rgba(255, 255, 255, 0.15)'}`
+                    background: isCertApplied || allProjectsApproved ? 'rgba(52, 211, 153, 0.18)' : 'rgba(100, 116, 139, 0.1)',
+                    color: isCertApplied || allProjectsApproved ? '#10b981' : 'var(--text-muted, #64748b)',
+                    border: `1px solid ${isCertApplied || allProjectsApproved ? '#34d399' : 'var(--border-light, rgba(203, 213, 225, 0.8))'}`
                   }}>
                     {isCertApplied ? '✅ APPLICATION SUBMITTED' : allProjectsApproved ? '🎉 UNLOCKED & ELIGIBLE' : `LOCKED 🔒 (${approvedProjectsCount} / ${totalProjectsCount} Approved)`}
                   </span>
@@ -848,15 +848,14 @@ export default function StudentDashboard({ user, onLogout, setCurrentView }) {
                     alignItems: 'center',
                     gap: '0.5rem',
                     background: isCertApplied 
-                      ? 'rgba(52, 211, 153, 0.2)' 
+                      ? 'rgba(52, 211, 153, 0.15)' 
                       : allProjectsApproved 
                         ? 'linear-gradient(135deg, #10b981, #06b6d4)' 
-                        : 'rgba(255, 255, 255, 0.06)',
-                    color: isCertApplied ? '#34d399' : allProjectsApproved ? '#ffffff' : '#94a3b8',
-                    border: `1.5px solid ${isCertApplied ? '#34d399' : allProjectsApproved ? '#34d399' : 'rgba(255, 255, 255, 0.15)'}`,
-                    boxShadow: isCertApplied ? '0 0 15px rgba(52, 211, 153, 0.25)' : allProjectsApproved ? '0 4px 20px rgba(16, 185, 129, 0.4)' : 'none',
-                    filter: allProjectsApproved || isCertApplied ? 'none' : 'blur(0.8px)',
-                    opacity: allProjectsApproved || isCertApplied ? 1 : 0.6,
+                        : 'rgba(100, 116, 139, 0.08)',
+                    color: isCertApplied ? '#10b981' : allProjectsApproved ? '#ffffff' : 'var(--text-muted, #64748b)',
+                    border: `1.5px solid ${isCertApplied ? '#34d399' : allProjectsApproved ? '#34d399' : 'var(--border-light, rgba(203, 213, 225, 0.8))'}`,
+                    boxShadow: isCertApplied ? '0 0 15px rgba(52, 211, 153, 0.2)' : allProjectsApproved ? '0 4px 20px rgba(16, 185, 129, 0.35)' : 'none',
+                    opacity: allProjectsApproved || isCertApplied ? 1 : 0.8,
                     cursor: isCertApplied ? 'default' : allProjectsApproved ? 'pointer' : 'not-allowed',
                     transition: 'all 0.25s ease'
                   }}

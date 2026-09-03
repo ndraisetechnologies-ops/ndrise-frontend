@@ -5,12 +5,12 @@ import './Modals.css';
 
 import { internshipAPI } from '../../services/apiClient';
 
-export default function ApplyModal({ isOpen, internship, onClose, onSubmitSuccess }) {
-  const [fullName, setFullName] = useState('Nikhil Kumar');
-  const [phone, setPhone] = useState('+91 98765 43210');
-  const [email, setEmail] = useState('nikhilkumar25@gmail.com');
-  const [college, setCollege] = useState('IIT Madras');
-  const [degree, setDegree] = useState('B.Tech Computer Science');
+export default function ApplyModal({ isOpen, internship, onClose, onSubmitSuccess, user }) {
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [college, setCollege] = useState('');
+  const [degree, setDegree] = useState('');
   const shouldReduceMotion = useReducedMotion();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -18,11 +18,17 @@ export default function ApplyModal({ isOpen, internship, onClose, onSubmitSucces
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      // Auto-populate logged-in user info if present, otherwise reset to empty strings
+      setFullName(user?.fullName || user?.name || '');
+      setPhone(user?.phone || user?.phoneNumber || '');
+      setEmail(user?.email || '');
+      setCollege(user?.college || user?.university || '');
+      setDegree(user?.degree || user?.branch || user?.stream || '');
     }
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen]);
+  }, [isOpen, user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +38,12 @@ export default function ApplyModal({ isOpen, internship, onClose, onSubmitSucces
     try {
       const res = await internshipAPI.apply({
         internshipId: internship.id,
-        title: internship.title
+        title: internship.title,
+        fullName,
+        phone,
+        email,
+        college,
+        degree
       });
 
       if (res.success || res.application) {
@@ -108,7 +119,7 @@ export default function ApplyModal({ isOpen, internship, onClose, onSubmitSucces
                       className="form-input icon-input"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Full Name"
+                      placeholder="Enter your full name"
                       required
                     />
                   </div>
@@ -123,7 +134,7 @@ export default function ApplyModal({ isOpen, internship, onClose, onSubmitSucces
                       className="form-input icon-input"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+91 98765 43210"
+                      placeholder="Enter phone number (e.g. +91 98765 43210)"
                       required
                     />
                   </div>
@@ -140,7 +151,7 @@ export default function ApplyModal({ isOpen, internship, onClose, onSubmitSucces
                     className="form-input icon-input"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email Address"
+                    placeholder="Enter your email address"
                     required
                   />
                 </div>
@@ -156,7 +167,7 @@ export default function ApplyModal({ isOpen, internship, onClose, onSubmitSucces
                     className="form-input icon-input"
                     value={college}
                     onChange={(e) => setCollege(e.target.value)}
-                    placeholder="College / University"
+                    placeholder="Enter college or university name"
                     required
                   />
                 </div>
@@ -164,7 +175,7 @@ export default function ApplyModal({ isOpen, internship, onClose, onSubmitSucces
 
               {/* Row 4: Branch / Stream */}
               <div className="form-group">
-                <label className="form-label">Branch </label>
+                <label className="form-label">Branch / Stream</label>
                 <div className="input-with-icon">
                   <BookOpen size={18} className="input-icon" />
                   <input
@@ -172,7 +183,7 @@ export default function ApplyModal({ isOpen, internship, onClose, onSubmitSucces
                     className="form-input icon-input"
                     value={degree}
                     onChange={(e) => setDegree(e.target.value)}
-                    placeholder="Branch / Stream"
+                    placeholder="Enter branch / stream (e.g. B.Tech Computer Science)"
                     required
                   />
                 </div>

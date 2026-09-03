@@ -181,7 +181,6 @@ export default function AuthPage({ initialMode = 'login', onAuthSuccess, onGoHom
       {/* Floating Back to Home Button */}
       <button className="auth-floating-back-btn" onClick={onGoHome} title="Back to Home" aria-label="Back to Home">
         <ArrowLeft size={16} />
-        <span>Back to Home</span>
       </button>
 
       {/* Main Dual-Panel Container */}

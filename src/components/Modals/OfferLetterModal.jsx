@@ -36,7 +36,7 @@ export default function OfferLetterModal({ isOpen, onClose, user, domainName }) 
     setIsGenerated(true);
   };
 
-  const studentName = user ? user.name : (emailInput.split('@')[0] || 'Nikhil Sharma');
+  const studentName = user ? (user.name || user.fullName) : (emailInput ? emailInput.split('@')[0] : 'Student');
   const refNo = `NDR/OFFER/2026/${Math.floor(10000 + Math.random() * 90000)}`;
 
   return (

@@ -5,10 +5,10 @@ import './Modals.css';
 
 export default function PaymentGatewayModal({ isOpen, onClose, user, trackTitle, onPaymentSuccess }) {
   const [selectedMethod, setSelectedMethod] = useState('upi'); // 'upi', 'card'
-  const [upiId, setUpiId] = useState('student@upi');
-  const [cardNumber, setCardNumber] = useState('4111 2222 3333 4444');
-  const [cardExpiry, setCardExpiry] = useState('12/28');
-  const [cardCvv, setCardCvv] = useState('123');
+  const [upiId, setUpiId] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardExpiry, setCardExpiry] = useState('');
+  const [cardCvv, setCardCvv] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const shouldReduceMotion = useReducedMotion();
