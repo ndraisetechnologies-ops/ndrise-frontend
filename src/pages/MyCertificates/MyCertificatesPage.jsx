@@ -107,7 +107,7 @@ export default function MyCertificatesPage({ user, onExploreClick, onSubmitTasks
                 <div className="card-top-row">
                   <div className="verified-tag">
                     <CheckCircle2 size={15} color="#34d399" />
-                    <span>ISO 9001:2015 VERIFIED</span>
+                    <span>OFFICIALLY VERIFIED</span>
                   </div>
                   <span className="cert-id-badge">ID: {cert.id}</span>
                 </div>
@@ -184,7 +184,7 @@ export default function MyCertificatesPage({ user, onExploreClick, onSubmitTasks
                 <img src="/logo.jpg" alt="Logo" style={{ width: '50px', height: '50px', objectFit: 'contain' }} />
                 <div>
                   <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: '800', color: '#1e1b4b' }}>ND Raise Technologies</h3>
-                  <p style={{ margin: 0, fontSize: '0.75rem', color: '#64748b' }}>ISO 9001:2015 Certified Educational Platform</p>
+                  <p style={{ margin: 0, fontSize: '0.75rem', color: '#64748b' }}>Verified Educational & Internship Platform</p>
                 </div>
                 <div style={{ fontSize: '0.75rem', color: '#475569', textAlign: 'right' }}>
                   <div>ID: <strong>{activeCertModal.id}</strong></div>

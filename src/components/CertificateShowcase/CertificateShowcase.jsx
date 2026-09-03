@@ -28,7 +28,7 @@ export default function CertificateShowcase({ onVerifyClick }) {
               Tamper-Proof <span>Verifiable Certificates</span>
             </h2>
             <p className="cert-subtitle">
-              Every certificate issued by ND Raise Technologies is backed by unique verification credentials, ISO 9001:2015 standards, and instant QR code verification.
+              Every certificate issued by ND Raise Technologies is backed by unique verification credentials, quality standards, and instant QR code verification.
             </p>
           </div>
         </FadeIn>
@@ -58,7 +58,7 @@ export default function CertificateShowcase({ onVerifyClick }) {
                     <img src="/logo.jpg" alt="ND Raise Technologies" className="cert-logo-img" />
                     <div>
                       <div className="cert-brand-name">ND Raise Technologies</div>
-                      <div className="cert-iso-tag">ISO 9001:2015 Certified Institution</div>
+                      <div className="cert-iso-tag">Verified Educational Institution</div>
                     </div>
                   </div>
                   <div className="cert-id-badge">ID: NDR-2026-1042</div>
@@ -123,7 +123,7 @@ export default function CertificateShowcase({ onVerifyClick }) {
               <div className="trust-features-list">
                 <div className="trust-feature-item">
                   <CheckCircle2 size={16} className="feature-check green" />
-                  <span>ISO 9001:2015 Quality Authenticated</span>
+                  <span>Officially Quality Authenticated</span>
                 </div>
                 <div className="trust-feature-item">
                   <CheckCircle2 size={16} className="feature-check blue" />

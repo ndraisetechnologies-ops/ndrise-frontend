@@ -25,7 +25,7 @@ export default function VerifyCertificatePage() {
               Verify Authentic <span>Internship Credentials</span>
             </h1>
             <p className="verify-hero-desc">
-              Instantly validate certificates, completion badges, and Letters of Recommendation (LOR) issued by ND Raise Technologies. ISO 9001:2015 Certified and trusted by employers worldwide.
+              Instantly validate certificates, completion badges, and Letters of Recommendation (LOR) issued by ND Raise Technologies. Certified and trusted by employers worldwide.
             </p>
 
             <div className="trust-features-row">
@@ -39,7 +39,7 @@ export default function VerifyCertificatePage() {
               </div>
               <div className="trust-feature">
                 <Award size={16} color="#a855f7" />
-                <span>ISO 9001:2015 Quality Standards</span>
+                <span>Verified Quality Standards</span>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function VerifyCertificatePage() {
                   <Award size={24} />
                 </div>
                 <h3>Industry Accreditation</h3>
-                <p>Our virtual internship programs adhere strictly to ISO 9001:2015 quality management standards for technical training.</p>
+                <p>Our virtual internship programs adhere strictly to industry quality management standards for technical training.</p>
               </motion.div>
             </StaggerItem>
           </StaggerContainer>

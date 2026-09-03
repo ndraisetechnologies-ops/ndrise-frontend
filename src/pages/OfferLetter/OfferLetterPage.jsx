@@ -132,14 +132,14 @@ export default function OfferLetterPage({ user }) {
               </div>
             </div>
 
-            {/* Printable ISO 9001:2015 Offer Letter Paper Card */}
+            {/* Printable Offer Letter Paper Card */}
             <div className="printable-paper-card">
               <div className="paper-header">
                 <div className="org-brand">
                   <img src="/logo.jpg" alt="Logo" className="org-logo" />
                   <div>
                     <h2 className="org-title">ND Raise Technologies</h2>
-                    <p className="org-subtitle">ISO 9001:2015 Certified Virtual Educational & Internship Platform</p>
+                    <p className="org-subtitle">Verified Virtual Educational & Internship Platform</p>
                   </div>
                 </div>
                 <div className="ref-details">

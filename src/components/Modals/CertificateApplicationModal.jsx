@@ -126,7 +126,7 @@ export default function CertificateApplicationModal({ isOpen, onClose, user, tra
                     required
                   />
                   <small style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '0.25rem', display: 'block' }}>
-                    This exact name will be printed on your ISO 9001:2015 verified certificate.
+                    This exact name will be printed on your officially verified certificate.
                   </small>
                 </div>
 

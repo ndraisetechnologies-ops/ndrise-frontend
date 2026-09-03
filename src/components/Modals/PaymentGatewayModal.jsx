@@ -82,7 +82,7 @@ export default function PaymentGatewayModal({ isOpen, onClose, user, trackTitle,
                     </span>
                   </div>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0.15rem 0 0 0' }}>
-                    ISO 9001:2015 Verified Certificate & LOR Verification Processing
+                    Verified Certificate & LOR Verification Processing
                   </p>
                 </div>
               </div>

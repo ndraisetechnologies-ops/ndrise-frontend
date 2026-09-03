@@ -101,7 +101,7 @@ export default function CertificateVerifier() {
           <div className="verifier-header">
             <div className="verifier-tag">
               <ShieldCheck size={18} />
-              <span>ISO 9001:2015 CERTIFIED VERIFICATION PORTAL</span>
+              <span>OFFICIAL CERTIFIED VERIFICATION PORTAL</span>
             </div>
             <h2 className="verifier-title">
               Verify <span>Internship Certificate</span> & Credentials

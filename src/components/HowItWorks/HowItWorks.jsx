@@ -48,7 +48,7 @@ export default function HowItWorks({ onApplyClick, onVerifyClick, onSubmitTaskCl
       stepNum: '04',
       icon: Award,
       title: 'Earn Verifiable Certificate & LOR',
-      desc: 'Receive your ISO 9001:2015 verifiable certificate with unique QR code and Letter of Recommendation (LOR).',
+      desc: 'Receive your official verifiable certificate with unique QR code and Letter of Recommendation (LOR).',
       actionText: 'Verify Credentials',
       actionFn: onVerifyClick,
       color: '#34d399'

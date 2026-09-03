@@ -140,7 +140,10 @@ export default function StudentDashboard({ user, onLogout, setCurrentView }) {
     }
   };
 
-  const primaryTrackTitle = applications[0]?.internship?.title || dashboardMetrics.primaryTrack || 'Full Stack Web Development Internship';
+  const hasAppliedInternship = applications.length > 0;
+  const primaryTrackTitle = hasAppliedInternship
+    ? (applications[0]?.internship?.title || applications[0]?.trackTitle || dashboardMetrics.primaryTrack || 'Virtual Internship Track')
+    : null;
 
   // Sequential Project Locking & Certificate Logic
   const projectsList = data.projectsList || [];
@@ -470,7 +473,11 @@ export default function StudentDashboard({ user, onLogout, setCurrentView }) {
                 <div className="summary-num">
                   <AnimatedNumber value={submissions.filter(s => s.status === 'APPROVED').length || dashboardMetrics.completedInternships || 0} />
                 </div>
-                <span className="summary-subtext">{applications.filter(a => ['APPLIED', 'SHORTLISTED', 'UNDER_REVIEW', 'SELECTED'].includes(a.status)).length || 1} active track</span>
+                <span className="summary-subtext">
+                  {hasAppliedInternship 
+                    ? `${applications.filter(a => ['APPLIED', 'SHORTLISTED', 'UNDER_REVIEW', 'SELECTED'].includes(a.status)).length || 1} active track`
+                    : 'No active tracks'}
+                </span>
               </div>
               <div className="summary-link">View Journey →</div>
             </motion.div>
@@ -622,181 +629,212 @@ export default function StudentDashboard({ user, onLogout, setCurrentView }) {
             <div className="card-header-flex">
               <div>
                 <h3 className="section-card-heading" style={{ marginBottom: '0.25rem', fontSize: '1.35rem' }}>Assigned Projects</h3>
-                <div className="enrolled-track-badge">
-                  <Code size={18} style={{ flexShrink: 0 }} />
-                  <span>Enrolled Track: <strong>{primaryTrackTitle}</strong></span>
-                </div>
+                {hasAppliedInternship && (
+                  <div className="enrolled-track-badge">
+                    <Code size={18} style={{ flexShrink: 0 }} />
+                    <span>Enrolled Track: <strong>{primaryTrackTitle}</strong></span>
+                  </div>
+                )}
               </div>
 
-              <motion.button 
-                type="button" 
-                className="btn-table-action"
-                style={{ fontSize: '0.85rem', whiteSpace: 'nowrap' }}
-                onClick={() => setCurrentView && setCurrentView('project-guidelines')}
-                whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-              >
-                View All Guidelines →
-              </motion.button>
+              {hasAppliedInternship && (
+                <motion.button 
+                  type="button" 
+                  className="btn-table-action"
+                  style={{ fontSize: '0.85rem', whiteSpace: 'nowrap' }}
+                  onClick={() => setCurrentView && setCurrentView('project-guidelines')}
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+                >
+                  View All Guidelines →
+                </motion.button>
+              )}
             </div>
 
-            <div className="project-overview-bar">
-              <span>Completed: <strong>{submissions.filter(s => s.status === 'APPROVED').length || data.projects?.completed || 0}</strong></span>
-              <span>In Progress: <strong>{submissions.filter(s => s.status === 'PENDING' || s.status === 'REVISION_REQUESTED').length || (data.projectsList?.length || 3) - submissions.filter(s => s.status === 'APPROVED').length}</strong></span>
-              <span>Submissions Logged: <strong>{submissions.length} live in Neon DB</strong></span>
-            </div>
+            {!hasAppliedInternship ? (
+              <div style={{
+                padding: '2.5rem 1.5rem',
+                textAlign: 'center',
+                background: 'rgba(255, 255, 255, 0.02)',
+                border: '1px dashed var(--border-light)',
+                borderRadius: '16px',
+                marginTop: '1rem'
+              }}>
+                <div style={{
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                  background: 'rgba(37, 99, 235, 0.12)',
+                  color: 'var(--primary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 1rem auto'
+                }}>
+                  <Briefcase size={28} />
+                </div>
+                <h4 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.4rem' }}>
+                  No Active Internship Enrolled
+                </h4>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', maxWidth: '520px', margin: '0 auto 1.35rem auto', lineHeight: '1.5' }}>
+                  You have not applied for any virtual internship track yet. Browse our available domain tracks (Full-Stack, Data Science, AI/ML, Cloud) and apply to get assigned projects, task guidelines, and start your internship.
+                </p>
+                <motion.button 
+                  type="button" 
+                  className="btn-primary"
+                  style={{ padding: '0.65rem 1.5rem', fontSize: '0.88rem', borderRadius: '10px' }}
+                  onClick={() => setCurrentView && setCurrentView('internships')}
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+                >
+                  Browse Internships & Apply →
+                </motion.button>
+              </div>
+            ) : (
+              <>
+                <div className="project-overview-bar">
+                  <span>Completed: <strong>{submissions.filter(s => s.status === 'APPROVED').length || data.projects?.completed || 0}</strong></span>
+                  <span>In Progress: <strong>{submissions.filter(s => s.status === 'PENDING' || s.status === 'REVISION_REQUESTED').length || (data.projectsList?.length || 3) - submissions.filter(s => s.status === 'APPROVED').length}</strong></span>
+                  <span>Submissions Logged: <strong>{submissions.length} live in Neon DB</strong></span>
+                </div>
 
-            <div className="projects-grid">
-              {(data.projectsList || []).map((proj, idx) => {
-                const existingSub = submissions.find(
-                  (s) => s.projectTitle?.trim().toLowerCase() === proj.title?.trim().toLowerCase()
-                );
-                const unlocked = isProjectUnlocked(idx);
-                const prevProj = idx > 0 ? projectsList[idx - 1] : null;
+                <div className="projects-grid">
+                  {(data.projectsList || []).map((proj, idx) => {
+                    const existingSub = submissions.find(
+                      (s) => s.projectTitle?.trim().toLowerCase() === proj.title?.trim().toLowerCase()
+                    );
+                    const unlocked = isProjectUnlocked(idx);
+                    const prevProj = idx > 0 ? projectsList[idx - 1] : null;
 
-                return (
-                  <motion.div 
-                    key={proj.id} 
-                    className="project-mini-card"
-                    style={{
-                      opacity: unlocked ? 1 : 0.72,
-                      filter: unlocked ? 'none' : 'grayscale(0.15)',
-                      border: !unlocked ? '1px solid rgba(255, 255, 255, 0.08)' : undefined
-                    }}
-                    whileHover={shouldReduceMotion || !unlocked ? {} : { y: -3 }}
-                  >
-                    <div className="proj-card-top">
-                      <h4 className="proj-title" style={{ fontSize: '1.05rem' }}>{proj.title}</h4>
-                      {!unlocked ? (
-                        <span className="proj-status" style={{
-                          padding: '0.25rem 0.65rem',
-                          borderRadius: '12px',
-                          fontSize: '0.76rem',
-                          fontWeight: '700',
-                          background: 'rgba(148, 163, 184, 0.15)',
-                          color: '#94a3b8',
-                          border: '1px solid rgba(148, 163, 184, 0.25)',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.25rem'
-                        }}>
-                          <Lock size={12} /> Locked
-                        </span>
-                      ) : existingSub ? (
-                        <span className="proj-status" style={{
-                          padding: '0.25rem 0.65rem',
-                          borderRadius: '12px',
-                          fontSize: '0.76rem',
-                          fontWeight: '700',
-                          background: existingSub.status === 'APPROVED' ? 'rgba(52, 211, 153, 0.18)' :
-                                      existingSub.status === 'REJECTED' ? 'rgba(239, 68, 68, 0.18)' :
-                                      existingSub.status === 'REVISION_REQUESTED' ? 'rgba(192, 132, 252, 0.18)' : 'rgba(245, 158, 11, 0.18)',
-                          color: existingSub.status === 'APPROVED' ? '#34d399' :
-                                 existingSub.status === 'REJECTED' ? '#f87171' :
-                                 existingSub.status === 'REVISION_REQUESTED' ? '#c084fc' : '#fbbf24'
-                        }}>
-                          {existingSub.status === 'APPROVED' && 'Approved ✔'}
-                          {existingSub.status === 'PENDING' && 'Pending Review ⏳'}
-                          {existingSub.status === 'REVISION_REQUESTED' && 'Revision Requested ⚠️'}
-                          {existingSub.status === 'REJECTED' && 'Rejected ❌'}
-                        </span>
-                      ) : (
-                        <span className={`proj-status ${proj.status === 'Completed' ? 'status-comp' : 'status-prog'}`}>
-                          {proj.status}
-                        </span>
-                      )}
-                    </div>
-
-                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted, #64748b)', margin: '0.25rem 0 0.5rem' }}>
-                      Domain: <strong>{proj.domain || data.welcome?.currentTrack || 'Frontend Development Internship'}</strong>
-                    </div>
-
-                    <span className="proj-tech" style={{ display: 'block', marginBottom: '0.6rem' }}>{proj.techStack}</span>
-
-                    {!unlocked && prevProj && (
-                      <div style={{
-                        background: 'rgba(245, 158, 11, 0.08)',
-                        border: '1px dashed rgba(245, 158, 11, 0.35)',
-                        padding: '0.5rem 0.75rem',
-                        borderRadius: '6px',
-                        fontSize: '0.76rem',
-                        color: '#fbbf24',
-                        marginBottom: '0.75rem',
-                        lineHeight: '1.4'
-                      }}>
-                        🔒 <strong>Locked Task:</strong> Complete & get admin approval for <em>"{prevProj.title}"</em> first.
-                      </div>
-                    )}
-
-                    {existingSub?.adminFeedback && (
-                      <div style={{
-                        background: 'rgba(192, 132, 252, 0.1)',
-                        border: '1px dashed #c084fc',
-                        padding: '0.5rem 0.75rem',
-                        borderRadius: '6px',
-                        fontSize: '0.78rem',
-                        color: '#e9d5ff',
-                        marginBottom: '0.75rem'
-                      }}>
-                        💡 <strong>Admin Note:</strong> {existingSub.adminFeedback}
-                      </div>
-                    )}
-
-                    <div style={{ display: 'flex', gap: '0.65rem', marginTop: '0.5rem' }}>
-                      <motion.button 
-                        type="button"
-                        className="btn-secondary"
-                        style={{ flex: 1, padding: '0.55rem 0.65rem', fontSize: '0.82rem', justifyContent: 'center' }}
-                        onClick={() => setCurrentView && setCurrentView('project-guidelines', proj)}
-                        whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
-                        whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                      >
-                        <span>Guidelines</span>
-                      </motion.button>
-
-                      <motion.button 
-                        type="button"
-                        className={unlocked ? "btn-primary" : "btn-secondary"}
-                        disabled={!unlocked}
+                    return (
+                      <motion.div 
+                        key={proj.id} 
+                        className="project-mini-card"
                         style={{
-                          flex: 1,
-                          padding: '0.55rem 0.65rem',
-                          fontSize: '0.82rem',
-                          justifyContent: 'center',
-                          background: !unlocked ? 'rgba(255,255,255,0.03)' : existingSub?.status === 'APPROVED' ? 'rgba(52, 211, 153, 0.2)' : undefined,
-                          borderColor: !unlocked ? 'rgba(255,255,255,0.1)' : existingSub?.status === 'APPROVED' ? '#34d399' : undefined,
-                          color: !unlocked ? 'var(--text-muted)' : existingSub?.status === 'APPROVED' ? '#34d399' : undefined,
-                          opacity: !unlocked ? 0.5 : 1,
-                          cursor: !unlocked ? 'not-allowed' : 'pointer'
+                          opacity: unlocked ? 1 : 0.72,
+                          filter: unlocked ? 'none' : 'grayscale(0.15)',
+                          border: !unlocked ? '1px solid rgba(255, 255, 255, 0.08)' : undefined
                         }}
-                        onClick={() => {
-                          if (!unlocked) {
-                            alert(`🔒 Project Locked!\n\nYou must complete and get admin approval for "${prevProj?.title}" before working on this task.`);
-                            return;
-                          }
-                          setSelectedTaskForSubmission(proj);
-                          setSubmitModalOpen(true);
-                        }}
-                        whileHover={shouldReduceMotion || !unlocked ? {} : { scale: 1.02 }}
-                        whileTap={shouldReduceMotion || !unlocked ? {} : { scale: 0.98 }}
+                        whileHover={shouldReduceMotion || !unlocked ? {} : { y: -3 }}
                       >
-                        <span>
-                          {!unlocked && 'Locked 🔒'}
-                          {unlocked && existingSub?.status === 'APPROVED' && 'Update Submission 🚀'}
-                          {unlocked && existingSub?.status === 'PENDING' && 'Update Link 🚀'}
-                          {unlocked && existingSub?.status === 'REVISION_REQUESTED' && 'Resubmit Task 🚀'}
-                          {unlocked && existingSub?.status === 'REJECTED' && 'Resubmit Task 🚀'}
-                          {unlocked && !existingSub && 'Submit Task 🚀'}
-                        </span>
-                      </motion.button>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                        <div className="proj-card-top">
+                          <h4 className="proj-title" style={{ fontSize: '1.05rem' }}>{proj.title}</h4>
+                          {!unlocked ? (
+                            <span className="proj-status" style={{
+                              padding: '0.25rem 0.65rem',
+                              borderRadius: '12px',
+                              fontSize: '0.76rem',
+                              fontWeight: '700',
+                              background: 'rgba(148, 163, 184, 0.15)',
+                              color: '#94a3b8',
+                              border: '1px solid rgba(148, 163, 184, 0.25)',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.25rem'
+                            }}>
+                              <Lock size={12} /> Locked
+                            </span>
+                          ) : existingSub ? (
+                            <span className="proj-status" style={{
+                              padding: '0.25rem 0.65rem',
+                              borderRadius: '12px',
+                              fontSize: '0.76rem',
+                              fontWeight: '700',
+                              background: existingSub.status === 'APPROVED' ? 'rgba(52, 211, 153, 0.18)' :
+                                          existingSub.status === 'REJECTED' ? 'rgba(239, 68, 68, 0.18)' :
+                                          existingSub.status === 'REVISION_REQUESTED' ? 'rgba(192, 132, 252, 0.18)' : 'rgba(245, 158, 11, 0.18)',
+                              color: existingSub.status === 'APPROVED' ? '#34d399' :
+                                     existingSub.status === 'REJECTED' ? '#f87171' :
+                                     existingSub.status === 'REVISION_REQUESTED' ? '#c084fc' : '#fbbf24'
+                            }}>
+                              {existingSub.status === 'APPROVED' && 'Approved ✔'}
+                              {existingSub.status === 'PENDING' && 'Pending Review ⏳'}
+                              {existingSub.status === 'REVISION_REQUESTED' && 'Revision Requested ⚠️'}
+                              {existingSub.status === 'REJECTED' && 'Rejected ❌'}
+                            </span>
+                          ) : (
+                            <span className={`proj-status ${proj.status === 'Completed' ? 'status-comp' : 'status-prog'}`}>
+                              {proj.status}
+                            </span>
+                          )}
+                        </div>
 
-            {/* Certificate Unlock & Application Banner Box */}
-            <div className="glass-panel" style={{
+                        <div style={{ fontSize: '0.78rem', color: 'var(--text-muted, #64748b)', margin: '0.25rem 0 0.5rem' }}>
+                          Domain: <strong>{proj.domain || data.welcome?.currentTrack || 'Frontend Development Internship'}</strong>
+                        </div>
+
+                        <span className="proj-tech" style={{ display: 'block', marginBottom: '0.6rem' }}>{proj.techStack}</span>
+
+                        {!unlocked && prevProj && (
+                          <div style={{
+                            background: 'rgba(245, 158, 11, 0.08)',
+                            border: '1px dashed rgba(245, 158, 11, 0.35)',
+                            padding: '0.5rem 0.75rem',
+                            borderRadius: '8px',
+                            marginBottom: '0.65rem',
+                            fontSize: '0.74rem',
+                            color: '#fbbf24',
+                            lineHeight: '1.4'
+                          }}>
+                            🔒 <strong>Locked Task:</strong> Complete & get admin approval for <em>"{prevProj.title}"</em> first.
+                          </div>
+                        )}
+
+                        <div style={{ display: 'flex', gap: '0.65rem', marginTop: '0.5rem' }}>
+                          <motion.button 
+                            type="button"
+                            className="btn-secondary"
+                            style={{ flex: 1, padding: '0.55rem 0.65rem', fontSize: '0.82rem', justifyContent: 'center' }}
+                            onClick={() => setCurrentView && setCurrentView('project-guidelines', proj)}
+                            whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+                            whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                          >
+                            <span>Guidelines</span>
+                          </motion.button>
+
+                          <motion.button 
+                            type="button"
+                            className={unlocked ? "btn-primary" : "btn-secondary"}
+                            disabled={!unlocked}
+                            style={{
+                              flex: 1,
+                              padding: '0.55rem 0.65rem',
+                              fontSize: '0.82rem',
+                              justifyContent: 'center',
+                              background: !unlocked ? 'rgba(255,255,255,0.03)' : existingSub?.status === 'APPROVED' ? 'rgba(52, 211, 153, 0.2)' : undefined,
+                              borderColor: !unlocked ? 'rgba(255,255,255,0.1)' : existingSub?.status === 'APPROVED' ? '#34d399' : undefined,
+                              color: !unlocked ? 'var(--text-muted)' : existingSub?.status === 'APPROVED' ? '#34d399' : undefined,
+                              opacity: !unlocked ? 0.5 : 1,
+                              cursor: !unlocked ? 'not-allowed' : 'pointer'
+                            }}
+                            onClick={() => {
+                              if (!unlocked) {
+                                alert(`🔒 Project Locked!\n\nYou must complete and get admin approval for "${prevProj?.title}" before working on this task.`);
+                                return;
+                              }
+                              setSelectedTaskForSubmission(proj);
+                              setSubmitModalOpen(true);
+                            }}
+                            whileHover={shouldReduceMotion || !unlocked ? {} : { scale: 1.02 }}
+                            whileTap={shouldReduceMotion || !unlocked ? {} : { scale: 0.98 }}
+                          >
+                            <span>
+                              {!unlocked && 'Locked 🔒'}
+                              {unlocked && existingSub?.status === 'APPROVED' && 'Update Submission 🚀'}
+                              {unlocked && existingSub?.status === 'PENDING' && 'Update Link 🚀'}
+                              {unlocked && existingSub?.status === 'REVISION_REQUESTED' && 'Resubmit Task 🚀'}
+                              {unlocked && existingSub?.status === 'REJECTED' && 'Resubmit Task 🚀'}
+                              {unlocked && !existingSub && 'Submit Task 🚀'}
+                            </span>
+                          </motion.button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* Certificate Unlock & Application Banner Box */}
+                <div className="glass-panel" style={{
               marginTop: '1.5rem',
               padding: '1.4rem 1.5rem',
               borderRadius: '16px',
@@ -878,7 +916,7 @@ export default function StudentDashboard({ user, onLogout, setCurrentView }) {
               {/* Description Text */}
               <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', margin: 0, lineHeight: '1.5' }}>
                 {isCertApplied
-                  ? '🎉 Certificate Application Logged! Your official ISO 9001:2015 verified Certificate of Completion & LOR will be reviewed and sent to your email.'
+                  ? '🎉 Certificate Application Logged! Your official verified Certificate of Completion & LOR will be reviewed and sent to your email.'
                   : allProjectsApproved 
                     ? 'Awesome work! All assigned project deliverables have been reviewed and approved by admin. You are now eligible to claim your official Certificate of Completion & LOR.'
                     : `Complete all ${totalProjectsCount} assigned project tasks sequentially and get admin approval for each task to unblur and unlock your official certificate.`
@@ -911,6 +949,8 @@ export default function StudentDashboard({ user, onLogout, setCurrentView }) {
                 </div>
               )}
             </div>
+              </>
+            )}
           </div>
         </FadeIn>
 

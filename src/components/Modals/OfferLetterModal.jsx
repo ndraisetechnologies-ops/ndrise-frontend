@@ -165,7 +165,7 @@ export default function OfferLetterModal({ isOpen, onClose, user, domainName }) 
                       <img src="/logo.jpg" alt="ND Raise Logo" style={{ width: '42px', height: '42px', borderRadius: '8px', objectFit: 'cover' }} />
                       <div>
                         <h2 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#1e1b4b', margin: 0 }}>ND Raise Technologies</h2>
-                        <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0 }}>ISO 9001:2015 Certified Virtual Educational & Internship Platform</p>
+                        <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0 }}>Verified Virtual Educational & Internship Platform</p>
                       </div>
                     </div>
                     <div style={{ textAlign: 'right', fontSize: '0.78rem', color: '#475569' }}>

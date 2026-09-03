@@ -29,7 +29,7 @@ import TaskSubmissionModal from './components/Modals/TaskSubmissionModal';
 import OfferLetterModal from './components/Modals/OfferLetterModal';
 import PolicyModal from './components/Modals/PolicyModal';
 import { CheckCircle2 } from 'lucide-react';
-import { authAPI, setAuthToken } from './services/apiClient';
+import { authAPI, setAuthToken, getAuthToken } from './services/apiClient';
 import { PageTransition } from './components/Motion/MotionUtils';
 import './App.css';
 
@@ -90,7 +90,14 @@ export default function App() {
     return PATH_TO_VIEW[path] || 'home';
   });
   const [selectedInternship, setSelectedInternship] = useState(ALL_INTERNSHIPS[0]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    try {
+      const cachedUser = localStorage.getItem('auth_user');
+      return cachedUser ? JSON.parse(cachedUser) : null;
+    } catch (e) {
+      return null;
+    }
+  });
   const [authLoading, setAuthLoading] = useState(true);
 
   // Synchronize browser address bar URL with currentView
@@ -115,12 +122,28 @@ export default function App() {
 
   // Check backend session state on mount
   useEffect(() => {
+    const token = getAuthToken();
+    const cachedUser = localStorage.getItem('auth_user');
+
+    if (!token && !cachedUser) {
+      setUser(null);
+      setAuthLoading(false);
+      return;
+    }
+
     authAPI.getMe().then((res) => {
       if (res.success && res.user) {
         setUser(res.user);
+        try {
+          localStorage.setItem('auth_user', JSON.stringify(res.user));
+        } catch (e) {}
       }
       setAuthLoading(false);
     }).catch(() => {
+      if (!getAuthToken()) {
+        setUser(null);
+        localStorage.removeItem('auth_user');
+      }
       setAuthLoading(false);
     });
   }, []);
@@ -240,7 +263,10 @@ export default function App() {
 
   const handleAuthSuccess = (userData) => {
     setUser(userData);
-    showToast(`Welcome ${userData.name}! Successfully signed in.`);
+    try {
+      localStorage.setItem('auth_user', JSON.stringify(userData));
+    } catch (e) {}
+    showToast(`Welcome ${userData.name || 'user'}! Successfully signed in.`);
     const roleLower = userData?.role?.toLowerCase();
     if (roleLower === 'admin' || roleLower === 'super_admin') {
       setCurrentView('admin-dashboard');
@@ -288,6 +314,7 @@ export default function App() {
           onLogout={async () => {
             try { await authAPI.logout(); } catch (e) {}
             setAuthToken(null);
+            localStorage.removeItem('auth_user');
             setUser(null);
             setCurrentView('home');
             showToast('Logged out successfully');
